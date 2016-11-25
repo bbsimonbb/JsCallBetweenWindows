@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>child</title>
+    <script>
+        var myResolve, myReject;
+        
+        function connect() {
+            window.opener.connectWaitingCaller(this);
+        }
+        function start() {
+            return new Promise(function (resolve, reject) {
+                //put these to one side for later use!
+                myResolve = resolve;
+                myReject = reject;
+            });
+        }
+        function sayHello(message) {
+            alert(message);
+        }
+        function chooseVehicule(link) {
+            window.close();
+            myResolve(link.innerHTML);
+        }
+        function returnAnError() {
+            window.close();
+            myReject("Something went horribly wrong");
+        }
+    </script>
+</head>
+<body onload="connect()">
+    <ul>
+        <li><a onclick="chooseVehicule(this)">Renault</a></li>
+        <li><a onclick="chooseVehicule(this)">Citroën</a></li>
+        <li><a onclick="chooseVehicule(this)">Peugeot</a></li>
+        <li><a onclick="chooseVehicule(this)">Bugatti</a></li>
+    </ul>
+    <button onclick="returnAnError()">Oops, return an error.</button>
+</body>
+</html>

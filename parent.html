@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Parent</title>
+    <script src="PromiseUtility.js"></script>
+    <script>
+        function clickRegion(link) {
+            GO("new", "child.html")
+            .then(function (loadedPage) {
+                loadedPage.sayHello("papa says hello");
+                return loadedPage.start();
+            })
+            .then(function (choice) {
+                //do something with user's choice in the modal page.
+                alert("User has chosen : " + choice);
+            })
+            .catch(function (someError) {
+                //errors, including HTTP errors, are returned to the caller
+                console.log(someError);
+                alert(someError);
+            })
+        }
+    </script>
+</head>
+<body>
+    <ul>
+        <li><a href="javascript:clickRegion(this)">Aquitaine</a></li>
+    </ul>
+</body>
+</html>
